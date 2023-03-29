@@ -2,7 +2,7 @@
 public class Car {
     int id;
     String name;
-    int costService;
+    int costService;//1
     double fuelConsumption;
     int realRange;
     int plannedRange;
