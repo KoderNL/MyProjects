@@ -12,7 +12,24 @@ public class EmployeeService {
         return false;
     }
     Employee[] sortByNameAndSalary() {//возвращают отсортированный массив с сотрудниками по критерию
-
+        int counter = 1;
+        Employee employee = null;
+        while (counter != 0) {
+            for (int i = 0; i < employees.length - 1; i++) {
+                counter = 0;
+                int compare = employees[i].name.compareTo(employees[i + 1].name);
+                if(compare > 0) {
+                    employee = employees[i + 1];
+                    employees[i + 1] = employees[i];
+                    employees[i] = employee;
+                    counter++;
+                }
+                if (i == employees.length - 2 && compare != 0) {
+                    i = 0;
+                }
+            }
+        }
+        return employees;
     }
     public Employee getByName(String name) {
         for (int i = 0; i < employees.length; i++) {

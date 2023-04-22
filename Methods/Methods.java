@@ -72,7 +72,7 @@ public class Methods {
         result = sumDiagonals(array);
         integerEquals("#20",expected,result);
     }
-    static  void testIsFindMatch() {
+    static void testIsFindMatch() {
         char[] first = {'A','R','r','A','Y'};
         char[] second = {'R','r'};
         boolean expected = true;
