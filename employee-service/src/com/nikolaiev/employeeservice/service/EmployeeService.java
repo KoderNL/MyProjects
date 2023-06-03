@@ -1,7 +1,14 @@
-import java.util.Objects;
+package com.nikolaiev.employeeservice.service;
+
+import com.nikolaiev.employeeservice.entity.Desinger;
+import com.nikolaiev.employeeservice.entity.Developer;
+import com.nikolaiev.employeeservice.entity.Employee;
+import com.nikolaiev.employeeservice.entity.Manager;
+
+import java.util.Arrays;
 
 public class EmployeeService {
-    Employee[] employees;
+    public Employee[] employees;
     public EmployeeService(Employee[] employees) {//конструктор который при вызове вернет нам новый экземпляр класса EmployeeService,
         this.employees = employees;//присваиваем свойству адрес на массив который к нам пришел
     }
@@ -11,25 +18,32 @@ public class EmployeeService {
         }
         return false;
     }
-    Employee[] sortByNameAndSalary() {//возвращают отсортированный массив с сотрудниками по критерию
-        int counter = 1;
-        Employee employee = null;
-        while (counter != 0) {
-            for (int i = 0; i < employees.length - 1; i++) {
-                counter = 0;
-                int compare = employees[i].name.compareTo(employees[i + 1].name);
-                if(compare > 0) {
-                    employee = employees[i + 1];
-                    employees[i + 1] = employees[i];
-                    employees[i] = employee;
-                    counter++;
-                }
-                if (i == employees.length - 2 && compare != 0) {
-                    i = 0;
+    public Employee[] sortByNameAndSalary() {//возвращают отсортированный массив с сотрудниками по критерию
+        Employee[] result = Arrays.copyOf(employees, employees.length);
+        for (int i = 0; i < result.length - 1; i++) {//обьявляем цикл который работает пока не дойдем до конца ориг массива
+            int minIndex = i;//создаем временую переменую счетчик где будем хранить адрес мин обьекта
+            // говорим что при каждой итерации она равна будет равна индексу
+            for (int j = i + 1; j < result.length; j++) {//запускаем внутренний цикл который будет работать внутри массива
+                // пока его счетчик меньше длины массива в тоже время стартовую точку подмассива считаем текущий индекс + 1
+                if (isLessThenByNameSalary(result[j],result[minIndex])) {//если текущий елемент массива меньше чем тот что лежит в мин индексе
+                    minIndex = j;//теперь мин индекс это то что мы нашли
                 }
             }
+            Employee temp = result[minIndex];// сохраняем теперь елемент который был когдато самым маленьким
+            result[minIndex] = result[i];//ложим на его место свежий маленький елемент
+            result[i] = temp;//а на место где был маленький ложим теперь большой
         }
-        return employees;
+        return result;
+    }
+    private boolean isLessThenByNameSalary(Employee first, Employee second) {//правда что ферст меньше чем эталон?
+        String nameFirst = first.name;
+        String nameSecond = second.name;
+        int salaryFirst = first.salary;
+        int salarySecond= second.salary;
+        if(nameFirst.compareTo(nameSecond) == 0){//если результатом сравнения имем они одинаковы то сравни по второму
+            return salaryFirst < salarySecond;//верни результат сравнения
+        }
+        return nameFirst.compareTo(nameSecond) > 0;
     }
     public Employee getByName(String name) {
         for (int i = 0; i < employees.length; i++) {
@@ -79,7 +93,7 @@ public class EmployeeService {
     }
     public Employee getById(long idNumber) {
         Employee employee = employees[0];
-        int index = (int) idNumber;
+        int index = (int) idNumber - 1;
         for (int i = 0; i < employees.length; i++) {
             if(i == index){
                 employee = employees[i];
@@ -91,13 +105,13 @@ public class EmployeeService {
         double result = 0.0;
         for (Employee employee : employees) {
             if (employee instanceof Desinger desinger) {
-                result += desinger.fullSalary(desinger.salary);
+                result = result + desinger.fullSalary(desinger.salary);
             }
             if (employee instanceof Developer developer) {
-                result += developer.fullSalary(developer.salary);
+                result = result + developer.fullSalary(developer.salary);
             }
             if (employee instanceof Manager manager) {
-                result += manager.salary;
+                result = result + manager.salary;
             }
         }
         return result;

@@ -1,3 +1,10 @@
+package com.nikolaiev.employeeservice.factory;
+
+import com.nikolaiev.employeeservice.entity.Desinger;
+import com.nikolaiev.employeeservice.entity.Developer;
+import com.nikolaiev.employeeservice.entity.Employee;
+import com.nikolaiev.employeeservice.entity.Manager;
+
 import java.util.Random;
 
 public class EmployeeFactory {

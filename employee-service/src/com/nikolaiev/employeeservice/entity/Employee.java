@@ -1,9 +1,11 @@
+package com.nikolaiev.employeeservice.entity;
+
 public class Employee {
-    long id;
-    String name;
-    int age;
-    int salary;
-    char gender;
+    public long id;
+    public String name;
+    public int age;
+    public int salary;
+    public char gender;
     public Employee(long id, String name, int age, int salary, char gender) {
         this.id = id;
         this.name = name;
