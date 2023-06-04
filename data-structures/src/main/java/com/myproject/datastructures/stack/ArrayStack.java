@@ -3,7 +3,7 @@ package com.myproject.datastructures.stack;
 public class ArrayStack implements Stack {//пишем реализацию интерфейса стек
     private int size = 0;
     private Object[] array;
-    public ArrayStack(int initialCapacity) {//конструктор ожидает стартовое число массива, а потом создает его
+    public ArrayStack(int initialCapacity) {
         array = new Object[initialCapacity];
     }
     @Override
@@ -31,6 +31,9 @@ public class ArrayStack implements Stack {//пишем реализацию ин
 
     @Override
     public void clear() {// проверка на отсутсвие значений.
+        for (int i = 0; i < array.length; i++) {
+            array[i] = null;
+        }
         size = 0;
     }
 
@@ -57,7 +60,7 @@ public class ArrayStack implements Stack {//пишем реализацию ин
 
     private void ensureCapacity() {
         Object[] newArray = new Object[array.length * 2];
-        for (int i = 0; i < array.length; i++) {
+        for(int i = 0; i < array.length; i++) {
             newArray[i] = array[i];
         }
        array = newArray;
