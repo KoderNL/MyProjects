@@ -10,12 +10,21 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ArrayQueueTest {
     private ArrayQueue arrayQueue;
     @BeforeEach
-    protected void setUp() throws Exception { //Этот метод будет вызываться перед каждым тестовым методом
+    protected void setUp() { //Этот метод будет вызываться перед каждым тестовым методом
         arrayQueue = new ArrayQueue(2);
+    }
+    @DisplayName("Dequeue empty queue")
+    @Test
+    public void testThrowIllegalStateExceptionWhenDequeueOnEmptyStack() {
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            arrayQueue.dequeue();
+        });
     }
     @DisplayName("Empty queue")
     @Test
     public void testEmptyQueue() {
+        arrayQueue.enqueue(1);
+        arrayQueue.clear();
         assertTrue(arrayQueue.isEmpty());
     }
     @DisplayName("Peek value")
@@ -66,13 +75,6 @@ public class ArrayQueueTest {
         arrayQueue.enqueue("W");
         arrayQueue.enqueue("T5");
         assertEquals("[V, W, T5]",arrayQueue.toString());
-    }
-    @DisplayName("Dequeue empty queue")
-    @Test
-    public void testThrowIllegalStateExceptionWhenDequeueOnEmptyStack() {
-        Assertions.assertThrows(IllegalStateException.class, () -> {
-            arrayQueue.dequeue();
-        });
     }
     @DisplayName("Contains value")
     @Test
