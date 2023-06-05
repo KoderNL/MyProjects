@@ -1,5 +1,7 @@
 package com.myproject.datastructures.queue;
 
+import java.util.StringJoiner;
+
 public class ArrayQueue implements Queue {
     //capacity method write
     private int size;
@@ -10,7 +12,9 @@ public class ArrayQueue implements Queue {
 
     @Override
     public void enqueue(Object value) {
-        ensureCapacity();
+        if(size == array.length ) {
+            grow();
+        }
 
         array[size] = value;
         size++;
@@ -22,9 +26,10 @@ public class ArrayQueue implements Queue {
             throw new IllegalStateException("Stack is empty!");
         }
         Object result = array[0];
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size - 1; i++) {
             array[i] = array[i + 1];
         }
+        array[size - 1] = null;
         size--;
         return result;
     }
@@ -63,25 +68,15 @@ public class ArrayQueue implements Queue {
         return false;
     }
     public String toString(){
-        StringBuilder stringBuilder = new StringBuilder();
+        StringJoiner stringJoiner = new StringJoiner(", ","[","]");
         for (int i = 0; i < size; i++) {
-            if(i == 0){
-                stringBuilder.append("[");
-            }
-            stringBuilder.append(array[i]);
-            if(i == size - 1){
-                stringBuilder.append("]");
-                break;
-            }
-            stringBuilder.append(", ");
+            stringJoiner.add(array[i].toString());
         }
-        return stringBuilder.toString();
+        return stringJoiner.toString();
     }
-    private void ensureCapacity() {
+    private void grow() {
         Object[] newArray = new Object[(int) Math.round(array.length * 1.5)];
-        for (int i = 0; i < size; i++) {
-            newArray[i] = array[i];
-        }
+        System.arraycopy(array,0,newArray,0,size);
         array = newArray;
     }
 }

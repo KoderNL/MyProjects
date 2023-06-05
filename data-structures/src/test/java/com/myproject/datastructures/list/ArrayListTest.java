@@ -17,38 +17,38 @@ public class ArrayListTest {
     }
     @DisplayName("Add value to index that is larger than the size of array")
     @Test
-    public void testAddValueToIndexThatIsLargerThanTheSizeOfArray() {
+    public void testAddValueToIndexThatIsLargerThenTheSizeOfArray() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.add("b",3);
         });
         assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("Add value to index that is less than size of array")
+    @DisplayName("Add value to index that is less then zero")
     @Test
-    public void testAddValueToIndexThatIsLessThanSizeOfArray() {
+    public void testAddValueToIndexThatIsLessThenZero() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.add("b",-1);
         });
         assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("Remove index that is larger than size of array")
+    @DisplayName("Remove index that is larger then size of array")
     @Test
-    public void testRemoveIndexThatIsLargerThanSizeOfArray() {
+    public void testRemoveIndexThatIsLargerThenSizeOfArray() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.remove(3);
         });
         assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("Remove index that is less than size of array")
+    @DisplayName("Remove index that is less then zero")
     @Test
-    public void testRemoveIndexThatIsLessThanSizeOfArray() {
+    public void testRemoveIndexThatIsLessThenZero() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.remove(-1);
         });
         assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
     }
     //
-    @DisplayName("Set value to index that is larger than the size of array")
+    @DisplayName("Set value to index that is larger then the size of array")
     @Test
     public void testSetValueToIndexThatIsLargerThanTheSizeOfArray() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -56,15 +56,15 @@ public class ArrayListTest {
         });
         assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("Set value to index that is less than size of array")
+    @DisplayName("Set value to index that is less then zero")
     @Test
-    public void testSetValueToIndexThatIsLessThanSizeOfArray() {
+    public void testSetValueToIndexThatIsLessThenZero() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.set("VW",-1);
         });
         assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("Get value to index that is larger than the size of array")
+    @DisplayName("Get value to index that is larger then the size of array")
     @Test
     public void testGetValueToIndexThatIsLargerThanTheSizeOfArray() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -72,9 +72,9 @@ public class ArrayListTest {
         });
         assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("Get value to index that is less than size of array")
+    @DisplayName("Get value to index that is less then zero")
     @Test
-    public void testGetValueToIndexThatIsLessThanSizeOfArray() {
+    public void testGetValueToIndexThatIsLessThenZero() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.get(-1);
         });

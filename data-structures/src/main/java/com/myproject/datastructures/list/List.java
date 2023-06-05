@@ -11,4 +11,5 @@ package com.myproject.datastructures.list;
         boolean contains(Object value);
         int indexOf(Object value);
         int lastIndexOf(Object value);
+        String toString();
     }
