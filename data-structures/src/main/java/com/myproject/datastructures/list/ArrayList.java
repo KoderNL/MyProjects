@@ -28,10 +28,13 @@ public class ArrayList implements List {
         Object removed;
         indexOutOfBoundsExceptionVerification(index,size);
         removed = array[index];
-        array[index] = null;
-        for (int i = index; i < size; i++) {
-            array[i] = array[i + 1];
+        if(index != size - 1) {
+            for (int i = index; i < size; i++) {
+                array[i] = array[i + 1];
+            }
         }
+        array[size - 1] = null;
+        size--;
         return removed;
     }
 

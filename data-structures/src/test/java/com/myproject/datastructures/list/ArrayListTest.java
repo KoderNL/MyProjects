@@ -94,28 +94,30 @@ public class ArrayListTest {
     @DisplayName("Add value over initial capacity and remove work correctly change size")
     @Test
     public void testAddValueOverInitialCapacityAndRemoveWorkCorrectlyChangeSize() {
-        arrayList.add(1);
-        arrayList.add(2,1);
-        arrayList.add(3,2);
-        arrayList.remove(2);
-        arrayList.remove(1);
-        arrayList.remove(0);
+        arrayList.add(23);
+        arrayList.add(78,1);
+        arrayList.add(41,2);
+        assertEquals(3,arrayList.size());
+        assertEquals(41,arrayList.remove(2));
+        assertEquals(78,arrayList.remove(1));
+        assertEquals(23,arrayList.remove(0));
+
         assertTrue(arrayList.isEmpty());
     }
     @DisplayName("Get value")
     @Test
     public void testGetValue() {
-        arrayList.add(1);
-        arrayList.add(1,2);
-        assertEquals(1,arrayList.get(2));
+        arrayList.add(404);
+        arrayList.add(404,1);
+        assertEquals(404,arrayList.get(1));
     }
     @DisplayName("Set value")
     @Test
     public void testSetValue() {
         arrayList.add(1);
-        arrayList.add(1,2);
-        arrayList.set(111,2);
-        assertEquals(111,arrayList.get(2));
+        arrayList.add(1,1);
+        arrayList.set(111,1);
+        assertEquals(111,arrayList.get(1));
     }
 
     @DisplayName("Clear work correctly")
