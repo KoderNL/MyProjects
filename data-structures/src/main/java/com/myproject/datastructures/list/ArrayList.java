@@ -3,21 +3,29 @@ package com.myproject.datastructures.list;
 import java.util.StringJoiner;
 
 public class ArrayList implements List {
-    public ArrayList(int initialCapacity) {
-        array = new Object[initialCapacity];
+    private static final int DEFAULT_INITIAL_CAPACITY = 2;
+
+    public ArrayList() {
+        this(DEFAULT_INITIAL_CAPACITY);
     }
+
+    public ArrayList(int capacity) {
+        array = new Object[capacity];
+    }
+
     private Object[] array;
     private int size;
+
     @Override
     public void add(Object value) {
-        add(value,size);
+        add(value, size);
     }
 
     @Override
     public void add(Object value, int index) {
-        indexOutOfBoundsExceptionVerification(index,size);
-        if(size == array.length) {
-            grow();
+        indexOutOfBoundsExceptionVerification(index, size);
+        if (size == array.length) {
+            ensureAndGrow();
         }
         array[index] = value;
         size++;
@@ -26,9 +34,9 @@ public class ArrayList implements List {
     @Override
     public Object remove(int index) {
         Object removed;
-        indexOutOfBoundsExceptionVerification(index,size);
+        indexOutOfBoundsExceptionVerification(index, size);
         removed = array[index];
-        if(index != size - 1) {
+        if (index != size - 1) {
             for (int i = index; i < size; i++) {
                 array[i] = array[i + 1];
             }
@@ -40,13 +48,13 @@ public class ArrayList implements List {
 
     @Override
     public Object get(int index) {
-        indexOutOfBoundsExceptionVerification(index,size);
+        indexOutOfBoundsExceptionVerification(index, size);
         return array[index];
     }
 
     @Override
     public Object set(Object value, int index) {
-        indexOutOfBoundsExceptionVerification(index,size);
+        indexOutOfBoundsExceptionVerification(index, size);
         Object oldValue;
         oldValue = array[index];
         array[index] = value;
@@ -57,13 +65,12 @@ public class ArrayList implements List {
     public int indexOf(Object value) {
         for (int i = 0; i < size; i++) {
             Object valueOfIndex = array[i];
-            if(value.equals(valueOfIndex)) {
+            if (value.equals(valueOfIndex)) {
                 return i;
             }
         }
         return -1;
     }
-
     @Override
     public int lastIndexOf(Object value) {
         for (int i = indexOf(value) + 1; i < size; i++) {
@@ -76,10 +83,7 @@ public class ArrayList implements List {
     }
     @Override
     public boolean contains(Object value) {
-        if (indexOf(value) != -1){
-            return true;
-        }
-        return false;
+        return indexOf(value) != -1;
     }
 
     @Override
@@ -92,6 +96,14 @@ public class ArrayList implements List {
 
     @Override
     public boolean isEmpty() {
+        for (int i = 0; i < size; i++) {
+            if(array[i] != null){
+                return false;
+            }
+            if(i == size - 1){
+                size = 0;
+            }
+        }
         return size == 0;
     }
 
@@ -108,7 +120,7 @@ public class ArrayList implements List {
         return stringJoiner.toString();
     }
 
-    private void grow() {
+    private void ensureAndGrow() {
         Object[] newArray = new Object[(int) Math.round(array.length * 1.5)];
         System.arraycopy(array,0,newArray,0,size);
         array = newArray;
@@ -116,10 +128,10 @@ public class ArrayList implements List {
 
     private void indexOutOfBoundsExceptionVerification(int index, int size) {
         if(index < 0) {
-            throw new IndexOutOfBoundsException("IndexOutOfBoundsException");
+            throw new IndexOutOfBoundsException("Index " + index + " out of bounds size " + size);
         }
         if(index > size){
-            throw new IndexOutOfBoundsException("IndexOutOfBoundsException");
+            throw new IndexOutOfBoundsException("Index " + index + " out of bounds size " + size);
         }
     }
 }

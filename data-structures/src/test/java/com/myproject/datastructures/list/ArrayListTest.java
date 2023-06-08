@@ -21,7 +21,7 @@ public class ArrayListTest {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.add("b",3);
         });
-        assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
+        assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
     @DisplayName("Add value to index that is less then zero")
     @Test
@@ -29,7 +29,7 @@ public class ArrayListTest {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.add("b",-1);
         });
-        assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
+        assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
     @DisplayName("Remove index that is larger then size of array")
     @Test
@@ -37,7 +37,7 @@ public class ArrayListTest {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.remove(3);
         });
-        assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
+        assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
     @DisplayName("Remove index that is less then zero")
     @Test
@@ -45,7 +45,7 @@ public class ArrayListTest {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.remove(-1);
         });
-        assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
+        assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
     //
     @DisplayName("Set value to index that is larger then the size of array")
@@ -54,7 +54,7 @@ public class ArrayListTest {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.set("VW",3);
         });
-        assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
+        assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
     @DisplayName("Set value to index that is less then zero")
     @Test
@@ -62,7 +62,7 @@ public class ArrayListTest {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.set("VW",-1);
         });
-        assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
+        assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
     @DisplayName("Get value to index that is larger then the size of array")
     @Test
@@ -70,7 +70,7 @@ public class ArrayListTest {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.get(3);
         });
-        assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
+        assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
     @DisplayName("Get value to index that is less then zero")
     @Test
@@ -78,30 +78,34 @@ public class ArrayListTest {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             arrayList.get(-1);
         });
-        assertEquals("IndexOutOfBoundsException",indexOutOfBoundsException.getMessage());
+        assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
-    ////////////////////////////////////////////////////////////////////////////////////////////
     @DisplayName("Add and remove and change size correctly")
     @Test
     public void testAddAndRemoveAndChangeSizeCorrectly() {
-        arrayList.add("1");
-        arrayList.add(2,1);
+        arrayList.add("1000");
+        arrayList.add(2000,1);
         assertEquals(2,arrayList.size());
-        arrayList.remove(1);
+        arrayList.remove(1);//
         arrayList.remove(0);
         assertTrue(arrayList.isEmpty());
     }
     @DisplayName("Add value over initial capacity and remove work correctly change size")
     @Test
     public void testAddValueOverInitialCapacityAndRemoveWorkCorrectlyChangeSize() {
-        arrayList.add(23);
-        arrayList.add(78,1);
-        arrayList.add(41,2);
-        assertEquals(3,arrayList.size());
-        assertEquals(41,arrayList.remove(2));
-        assertEquals(78,arrayList.remove(1));
-        assertEquals(23,arrayList.remove(0));
+        arrayList.add("1000");
+        arrayList.add(null);
+        arrayList.add(2000,2);
+        arrayList.add('A',3);
+        arrayList.add(true,4);
+        arrayList.add(2.0,5);
+        assertEquals(6,arrayList.size());
 
+        assertEquals(2.0,arrayList.remove(5));
+        assertEquals(true,arrayList.remove(4));
+        assertEquals('A',arrayList.remove(3));
+        assertEquals(2000,arrayList.remove(2));
+        assertEquals("1000",arrayList.remove(0));
         assertTrue(arrayList.isEmpty());
     }
     @DisplayName("Get value")
