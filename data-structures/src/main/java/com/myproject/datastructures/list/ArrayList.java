@@ -9,9 +9,15 @@ public class ArrayList implements List {
         this(DEFAULT_INITIAL_CAPACITY);
     }
 
-    public ArrayList(int capacity) {
-        array = new Object[capacity];
-    }
+    public ArrayList(int initialCapacity) {
+        if(initialCapacity < 0) {
+            throw new IllegalArgumentException("Invalid capacity: " + initialCapacity);
+        }
+        if(initialCapacity == 0) {
+            throw new IndexOutOfBoundsException("Index " + initialCapacity + " out of bounds size " + getCapacity());
+        }
+        array = new Object[initialCapacity];
+        }
 
     private Object[] array;
     private int size;
@@ -23,67 +29,65 @@ public class ArrayList implements List {
 
     @Override
     public void add(Object value, int index) {
-        indexOutOfBoundsExceptionVerification(index, size);
+        validateIndex(index, size);
         if (size == array.length) {
-            ensureAndGrow();
+            increaseCapacity();
         }
         array[index] = value;
         size++;
     }
 
     @Override
-    public Object remove(int index) {
-        Object removed;
-        indexOutOfBoundsExceptionVerification(index, size);
-        removed = array[index];
-        if (index != size - 1) {
-            for (int i = index; i < size; i++) {
-                array[i] = array[i + 1];
-            }
-        }
-        array[size - 1] = null;
-        size--;
-        return removed;
-    }
-
-    @Override
     public Object get(int index) {
-        indexOutOfBoundsExceptionVerification(index, size);
+        validateIndex(index, size);
         return array[index];
     }
 
     @Override
     public Object set(Object value, int index) {
-        indexOutOfBoundsExceptionVerification(index, size);
-        Object oldValue;
-        oldValue = array[index];
+        validateIndex(index, size);
+        Object oldValue = array[index];
         array[index] = value;
         return oldValue;
     }
 
     @Override
+    public boolean contains(Object value) {
+        return indexOf(value) != -1;
+    }
+
+    @Override
+    public Object remove(int index) {
+        Object valueToRemove;
+        validateIndex(index, size);
+        valueToRemove = array[index];
+        if (index != size - 1) {
+            System.arraycopy(array,index + 1,array,index,size - index - 1);
+        }
+        array[size - 1] = null;
+        size--;
+        return valueToRemove;
+    }
+
+    @Override
     public int indexOf(Object value) {
-        for (int i = 0; i < size; i++) {
-            Object valueOfIndex = array[i];
-            if (value.equals(valueOfIndex)) {
-                return i;
+        for (int index = 0; index < size; index++) {
+            Object firstOfIndex = array[index];
+            if (value.equals(firstOfIndex)) {
+                return index;
             }
         }
         return -1;
     }
     @Override
     public int lastIndexOf(Object value) {
-        for (int i = indexOf(value) + 1; i < size; i++) {
-            Object valueOfIndex = array[i];
-            if(value.equals(valueOfIndex)) {
-                return i;
+        for (int index = indexOf(value) + 1; index < size; index++) {
+            Object lastOfIndex = array[index];
+            if(value.equals(lastOfIndex)) {
+                return index;
             }
         }
         return -1;
-    }
-    @Override
-    public boolean contains(Object value) {
-        return indexOf(value) != -1;
     }
 
     @Override
@@ -113,20 +117,22 @@ public class ArrayList implements List {
     }
 
     public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(", ","[","]");
+        StringJoiner listContents = new StringJoiner(", ","[","]");
         for (int i = 0; i < size; i++) {
-            stringJoiner.add(array[i].toString());
+            //через обжект добавлять
+            listContents.add(array[i].toString());
         }
-        return stringJoiner.toString();
+        return listContents.toString();
     }
 
-    private void ensureAndGrow() {
+    private void increaseCapacity() {
+        @SuppressWarnings("unchecked")
         Object[] newArray = new Object[(int) Math.round(array.length * 1.5)];
         System.arraycopy(array,0,newArray,0,size);
         array = newArray;
     }
 
-    private void indexOutOfBoundsExceptionVerification(int index, int size) {
+    private void validateIndex(int index, int size) {
         if(index < 0) {
             throw new IndexOutOfBoundsException("Index " + index + " out of bounds size " + size);
         }
@@ -134,5 +140,6 @@ public class ArrayList implements List {
             throw new IndexOutOfBoundsException("Index " + index + " out of bounds size " + size);
         }
     }
+    int getCapacity() {return array.length;}
 }
 
