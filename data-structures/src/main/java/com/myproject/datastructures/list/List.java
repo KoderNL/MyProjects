@@ -1,15 +1,18 @@
 package com.myproject.datastructures.list;
-    public interface List {
-        void add(Object value);
-        void add(Object value, int index);
-        Object remove(int index);
-        Object get(int index);
-        Object set(Object value, int index);
+
+import java.util.Iterator;
+
+public interface List<T> extends Iterable<T> {
+        void add(T value);
+        void add(T value, int index);
+        T remove(int index);
+        T get(int index);
+        T set(T value, int index);
         void clear();
         int size();
         boolean isEmpty();
-        boolean contains(Object value);
-        int indexOf(Object value);
-        int lastIndexOf(Object value);
+        boolean contains(T value);
+        int indexOf(T value);
+        int lastIndexOf(T value);
         String toString();
     }
