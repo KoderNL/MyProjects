@@ -5,6 +5,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+import javax.swing.text.html.HTMLDocument;
+
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayListTest {
@@ -189,5 +193,17 @@ public class ArrayListTest {
         arrayList.add("T5");
         arrayList.add(null);
         assertEquals("[V, W, T5, null]",arrayList.toString());
+    }
+    @DisplayName("Iterator work correctly")
+    @Test
+    public void testIteratorWorkCorrectly() {
+        arrayList.add("Test Message #1");
+        arrayList.add("Test Message #2");
+        Iterator iterator = arrayList.iterator();
+        assertTrue(iterator.hasNext());
+        assertEquals("Test Message #1",iterator.next());
+        assertTrue(iterator.hasNext());
+        assertEquals("Test Message #2",iterator.next());
+        assertTrue(iterator.hasNext());
     }
 }

@@ -33,7 +33,7 @@ public class ArrayList<T> implements List<T> {
     public void add(T value, int index) {
         validateIndex(index, size);
         if (size == array.length) {
-            increaseCapacity();
+            ensureCapacityIfGrowNeeded();
         }
         array[index] = value;
         size++;
@@ -134,7 +134,7 @@ public class ArrayList<T> implements List<T> {
         return new MyIterator();
     }
     private class MyIterator implements Iterator<T> {
-        private int index = 0;
+        private int index;
         private boolean allowedToRemove;
         @Override
         public boolean hasNext() {
@@ -153,14 +153,14 @@ public class ArrayList<T> implements List<T> {
         @Override
         public void remove() {
             if (!allowedToRemove) {
-                throw new IllegalStateException("not allowed to remove");
+                throw new IllegalStateException("Not allowed to remove");
             }
             ArrayList.this.remove(index - 1);
             index--;
             allowedToRemove = false;
         }
     }
-    private void increaseCapacity() {
+    private void ensureCapacityIfGrowNeeded() {
         @SuppressWarnings("unchecked")
         T[] newArray = (T[]) new Object[(int) Math.round(array.length * 1.5)];
         System.arraycopy(array,0,newArray,0,size);
