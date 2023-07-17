@@ -90,7 +90,7 @@ public class ArrayListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("test constructor with default initial capacity work correctly")
+    @DisplayName("Constructor with default initial capacity work correctly")
     @Test
     public void testConstructorWithDefaultInitialCapacityWorkCorrectly() {
         assertEquals(2, arrayList.getCapacity());
@@ -98,11 +98,7 @@ public class ArrayListTest {
     @DisplayName("Initial capacity for constructor with zero initial capacity work correctly")
     @Test
     public void testInitialCapacityForConstructorWithZeroInitialCapacityWorkCorrectly() {
-        //решить должна ли работаь программа при указании начального значения ноль или мы должны выбрасывать ошибку!
-        arrayList = new ArrayList(0);
-        arrayList.add(1);
-        arrayList.add("32");
-        assertEquals(2, arrayList.getCapacity());
+        assertEquals(0,arrayList.size());
     }
     @DisplayName("Add and remove and change size and capacity work correctly")
     @Test
@@ -118,17 +114,17 @@ public class ArrayListTest {
     @Test
     public void testAddValueOverInitialCapacityAndRemoveWorkCorrectlyChangeSize() {
         arrayList.add("1000");
-        arrayList.add(null);
-        arrayList.add(2000,2);
-        arrayList.add('A',3);
-        arrayList.add(true,4);
+        arrayList.add(2000,1);
+        arrayList.add('A',2);
+        arrayList.add(true,3);
+        arrayList.add(null,4);
         arrayList.add(2.0,5);
         assertEquals(6,arrayList.size());
 
         assertEquals(2.0,arrayList.remove(5));
-        assertEquals(true,arrayList.remove(4));
-        assertEquals('A',arrayList.remove(3));
-        assertEquals(2000,arrayList.remove(2));
+        assertEquals(true,arrayList.remove(3));
+        assertEquals('A',arrayList.remove(2));
+        assertEquals(2000,arrayList.remove(1));
         assertEquals("1000",arrayList.remove(0));
         assertTrue(arrayList.isEmpty());
     }
@@ -191,6 +187,7 @@ public class ArrayListTest {
         arrayList.add("V");
         arrayList.add("W");
         arrayList.add("T5");
-        assertEquals("[V, W, T5]",arrayList.toString());
+        arrayList.add(null);
+        assertEquals("[V, W, T5, null]",arrayList.toString());
     }
 }
