@@ -92,9 +92,6 @@ public class ArrayList<T> implements List<T> {
     public T remove(int index) {
         validateIndex(index, size);
         T valueToRemove = array[index];
-        if (size > 0 && isEmpty()) {
-            size = 0;
-        }
         if (index != size - 1) {
             System.arraycopy(array,index + 1,array,index,size - index - 1);
         }
@@ -104,12 +101,7 @@ public class ArrayList<T> implements List<T> {
     }
     @Override
     public boolean isEmpty() {
-        for (int i = 0; i < size; i++) {
-            if(array[i] != null){
-                return false;
-            }
-        }
-        return true;
+        return size == 0;
     }
 
     @Override
