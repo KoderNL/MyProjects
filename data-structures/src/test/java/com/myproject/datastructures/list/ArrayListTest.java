@@ -114,23 +114,39 @@ public class ArrayListTest {
         arrayList.remove(0);
         assertTrue(arrayList.isEmpty());
     }
-    @DisplayName("Add value over initial capacity and remove work correctly change size")
+    @DisplayName("Add different types in list and remove change size work correctly")
     @Test
-    public void testAddValueOverInitialCapacityAndRemoveWorkCorrectlyChangeSize() {
+    public void testAddDifferentTypesInListAndRemoveChangeSizeWorkCorrectly() {
         arrayList.add("1000");
         arrayList.add(2000,1);
         arrayList.add('A',2);
         arrayList.add(true,3);
         arrayList.add(null,4);
         arrayList.add(2.0,5);
-        assertEquals(6,arrayList.size());
+        arrayList.add(1234567890L,6);
+        arrayList.add(3.14f,7);
+        arrayList.add("CoderNL",8);
+        assertEquals(9,arrayList.size());
 
+        assertEquals("CoderNL",arrayList.remove(8));
+        assertEquals(3.14f,arrayList.remove(7));
+        assertEquals(1234567890L,arrayList.remove(6));
         assertEquals(2.0,arrayList.remove(5));
+        assertNull(arrayList.remove(4));
         assertEquals(true,arrayList.remove(3));
         assertEquals('A',arrayList.remove(2));
         assertEquals(2000,arrayList.remove(1));
         assertEquals("1000",arrayList.remove(0));
         assertTrue(arrayList.isEmpty());
+    }
+    @DisplayName("Add many of values and change size work correctly")
+    @Test
+    public void testAddManyOfValuesAndChangeSizeWorkCorrectly() {
+        for (int i = 1; i <= 10000000; i++) {
+            arrayList.add("number " + i);
+        }
+        assertTrue(arrayList.contains("number 10000000"));
+        assertEquals(10000000,arrayList.size());
     }
     @DisplayName("IndexOf work correctly when positive expected")
     @Test
@@ -204,6 +220,6 @@ public class ArrayListTest {
         assertEquals("Test Message #1",iterator.next());
         assertTrue(iterator.hasNext());
         assertEquals("Test Message #2",iterator.next());
-        assertTrue(iterator.hasNext());
+        assertFalse(iterator.hasNext());
     }
 }
