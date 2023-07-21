@@ -1,6 +1,6 @@
 package com.myproject.datastructures.list;
 
-import datastructures.list.List;
+import com.myproject.datastructures.list.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractListTest {
-    private List<T> list;
+    private List list;
     private IndexOutOfBoundsException indexOutOfBoundsException;
     IllegalArgumentException illegalArgumentException;
 
@@ -19,12 +19,12 @@ public abstract class AbstractListTest {
         list = getList();
     }
 
-    protected abstract List getList(); 
+    protected abstract List getList();
     @DisplayName("Constructor with custom initial capacity less zero throw IllegalArgumentException")
     @Test
     public void testConstructorWithCustomInitialCapacityLessZeroThrowIllegalArgumentException() {
         illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
-            list = new list(-1);
+            list = new List(-1);
         });
         assertEquals("Invalid capacity: -1",illegalArgumentException.getMessage());
     }
