@@ -8,7 +8,6 @@ public class ArrayList<T> implements List<T> {
     private T[] array;
     private int size;
     private static final int DEFAULT_INITIAL_CAPACITY = 2;
-    private static final Object[] EMPTY_ELEMENTDATA = {};
 
     public ArrayList() {
         this(DEFAULT_INITIAL_CAPACITY);
@@ -18,15 +17,13 @@ public class ArrayList<T> implements List<T> {
         if(initialCapacity < 0) {
             throw new IllegalArgumentException("Invalid capacity: " + initialCapacity);
         }
-        if(initialCapacity == 0) {
-            array = (T[]) EMPTY_ELEMENTDATA;
-        }
+
         array = (T[]) new Object[initialCapacity];
     }
 
     @Override
     public void add(T value) {
-        add(value, size);
+       add(value, size);
     }
 
     @Override
@@ -62,6 +59,7 @@ public class ArrayList<T> implements List<T> {
                 return index;
             }
         }
+
         return -1;
     }
 
@@ -119,7 +117,7 @@ public class ArrayList<T> implements List<T> {
         }
         return listContents.toString();
     }
-    int getCapacity() {return array.length;}
+    public int getCapacity() {return array.length;}
 
     @Override
     public Iterator iterator() {

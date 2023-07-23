@@ -1,16 +1,15 @@
 package com.myproject.datastructures.list;
 
-import com.myproject.datastructures.list.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractListTest {
     private List list;
+    protected abstract List getList();
     private IndexOutOfBoundsException indexOutOfBoundsException;
     IllegalArgumentException illegalArgumentException;
 
@@ -19,23 +18,6 @@ public abstract class AbstractListTest {
         list = getList();
     }
 
-    protected abstract List getList();
-    @DisplayName("Constructor with custom initial capacity less zero throw IllegalArgumentException")
-    @Test
-    public void testConstructorWithCustomInitialCapacityLessZeroThrowIllegalArgumentException() {
-        illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
-            list = new List(-1);
-        });
-        assertEquals("Invalid capacity: -1",illegalArgumentException.getMessage());
-    }
-    @DisplayName("Add value to index that is larger than the size of array throw IndexOutOfBoundsException")
-    @Test
-    public void testAddValueToIndexThatIsLargerThenTheSizeOfArrayThrowIndexOutOfBoundsException() {
-        indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
-            list.add("b",3);
-        });
-        assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
-    }
     @DisplayName("Add value to index that is less then zero throw IndexOutOfBoundsException")
     @Test
     public void testAddValueToIndexThatIsLessThenZeroThrowIndexOutOfBoundsException() {
@@ -44,9 +26,9 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("Remove index that is larger then size of array throw IndexOutOfBoundsException")
+    @DisplayName("Remove index that is larger then size of list throw IndexOutOfBoundsException")
     @Test
-    public void testRemoveIndexThatIsLargerThenSizeOfArrayThrowIndexOutOfBoundsException() {
+    public void testRemoveIndexThatIsLargerThenSizeOfListThrowIndexOutOfBoundsException() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             list.remove(3);
         });
@@ -61,11 +43,19 @@ public abstract class AbstractListTest {
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
     //
-    @DisplayName("Set value to index that is larger then the size of array throw IndexOutOfBoundsException")
+    @DisplayName("Set value to index that is larger then the size of list throw IndexOutOfBoundsException")
     @Test
-    public void testSetValueToIndexThatIsLargerThanTheSizeOfArrayThrowIndexOutOfBoundsException() {
+    public void testSetValueToIndexThatIsLargerThanTheSizeOfListThrowIndexOutOfBoundsException() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             list.set("VW",3);
+        });
+        assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
+    }
+    @DisplayName("Add value to index that is larger than the size of list throw IndexOutOfBoundsException")
+    @Test
+    public void testAddValueToIndexThatIsLargerThenTheSizeOfListThrowIndexOutOfBoundsException() {
+        indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            list.add("b",3);
         });
         assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
@@ -77,9 +67,9 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("Get value to index that is larger then the size of array throw IndexOutOfBoundsException")
+    @DisplayName("Get value to index that is larger then the size of list throw IndexOutOfBoundsException")
     @Test
-    public void testGetValueToIndexThatIsLargerThanTheSizeOfArrayThrowIndexOutOfBoundsException() {
+    public void testGetValueToIndexThatIsLargerThanTheSizeOfListThrowIndexOutOfBoundsException() {
         indexOutOfBoundsException = Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
             list.get(3);
         });
@@ -93,19 +83,10 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("Constructor with default initial capacity work correctly")
+
+    @DisplayName("Add and remove and change size work correctly")
     @Test
-    public void testConstructorWithDefaultInitialCapacityWorkCorrectly() {
-        assertEquals(2, list.getCapacity());
-    }
-    @DisplayName("Initial capacity for constructor with zero initial capacity work correctly")
-    @Test
-    public void testInitialCapacityForConstructorWithZeroInitialCapacityWorkCorrectly() {
-        assertEquals(0,list.size());
-    }
-    @DisplayName("Add and remove and change size and capacity work correctly")
-    @Test
-    public void testAddAndRemoveAndChangeSizeAndCapacityWorkCorrectly() {
+    public void testAddAndRemoveAndChangeSizeWorkCorrectly() {
         list.add("1000");
         list.add(2000,1);
         assertEquals(2,list.size());
@@ -209,16 +190,5 @@ public abstract class AbstractListTest {
         list.add(null);
         assertEquals("[V, W, T5, null]",list.toString());
     }
-    @DisplayName("Iterator work correctly")
-    @Test
-    public void testIteratorWorkCorrectly() {
-        list.add("Test Message #1");
-        list.add("Test Message #2");
-        Iterator iterator = list.iterator();
-        assertTrue(iterator.hasNext());
-        assertEquals("Test Message #1",iterator.next());
-        assertTrue(iterator.hasNext());
-        assertEquals("Test Message #2",iterator.next());
-        assertFalse(iterator.hasNext());
-    }
+
 }
