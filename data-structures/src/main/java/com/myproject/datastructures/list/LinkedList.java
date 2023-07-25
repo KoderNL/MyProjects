@@ -3,34 +3,63 @@ package com.myproject.datastructures.list;
 import java.util.Iterator;
 
 public class LinkedList<T> implements List<T>{
-    public class Node {
-        int data;
-        Node next;
+    @Override
+    public void add(T value) {
 
-        public Node(int data) {
-            this.data = data;
-            this.next = null;
-        }
     }
 
-    public class LinkedList {
-        Node head;
+    @Override
+    public void add(T value, int index) {
 
-        public LinkedList() {
-            this.head = null;
-        }
+    }
 
-        // Метод для добавления элемента в конец списка
-        public void append(int data) {
-            Node newNode = new Node(data);
-            if (head == null) {
-                head = newNode;
-            } else {
-                Node current = head;
-                while (current.next != null) {
-                    current = current.next;
-                }
-                current.next = newNode;
-            }
-        }
+    @Override
+    public T remove(int index) {
+        return null;
+    }
+
+    @Override
+    public T get(int index) {
+        return null;
+    }
+
+    @Override
+    public T set(T value, int index) {
+        return null;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public boolean contains(T value) {
+        return false;
+    }
+
+    @Override
+    public int indexOf(T value) {
+        return 0;
+    }
+
+    @Override
+    public int lastIndexOf(T value) {
+        return 0;
+    }
+
+    @Override
+    public int getCapacity() {
+        return 0;
+    }
 }
