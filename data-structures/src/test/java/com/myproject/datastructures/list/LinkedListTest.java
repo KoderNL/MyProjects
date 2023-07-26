@@ -3,6 +3,7 @@ package com.myproject.datastructures.list;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 public class LinkedListTest extends AbstractListTest {
     private LinkedList linkedList;
     @BeforeEach
@@ -13,8 +14,11 @@ public class LinkedListTest extends AbstractListTest {
     protected List getList() {
         return new LinkedList();
     }
+
+    @DisplayName("Linked list is empty after initialization")
     @Test
     public void testLinkedListIsEmptyAfterInitialization() {
-        Assertions.assertTrue(list.isEmpty());
+        Assertions.assertTrue(linkedList.isEmpty());
     }
+
 }
