@@ -17,10 +17,11 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        T result= null;
-        Node current = head;
-        for (int i = 0; i <= index; i++) {
-            if(current.index == index) {
+        T result = null;//will put result
+        Node current = head;;//указатель на первый елемент
+        for (int i = 0; i < index; i++) {
+            current = current.next;//на каждой итерации ложим  в указатель ссылку на следующий
+            if(current.index == index) {//проверяем если в ноде по индексу совпадает верни нам эту ноду
                 result = (T) current;
             }
         }
@@ -59,12 +60,36 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public int indexOf(T value) {
-        return 0;
+        int index = 0;
+        Node<T> currentNode = head;
+
+        while (currentNode != null) {
+            if (currentNode.getData().equals(value)) {
+                return index;
+            }
+
+            currentNode = currentNode.getNext();
+            index++;
+        }
+
+        return -1;
     }
 
     @Override
     public int lastIndexOf(T value) {
-        return 0;
+        int index = size() - 1;
+        Node<T> currentNode = tail;
+
+        while (currentNode != null) {
+            if (currentNode.getData().equals(value)) {
+                return index;
+            }
+
+            currentNode = currentNode.getPrev();
+            index--;
+        }
+
+        return -1;
     }
 
     @Override
