@@ -30,7 +30,20 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("Индекс не может быть отрицательным: " + index);
+        }
+
+        Node current = head;
+        int currentIndex = 0;
+
+        while (current != null) {
+            if (currentIndex == index) {
+                return current.data;
+            }
+
+            current = current.next;
+            currentIndex++;
     }
 
     @Override
