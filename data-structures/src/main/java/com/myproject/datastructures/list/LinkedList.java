@@ -12,7 +12,18 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void add(T value, int index) {
+        Node newNode = new Node(data);
 
+        if (head == null) {
+            // Если список пустой, устанавливаем новый узел как головной и хвостовой
+            head = newNode;
+            tail = newNode;
+        } else {
+            // Иначе, добавляем новый узел после текущего хвостового
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
     }
 
     @Override
