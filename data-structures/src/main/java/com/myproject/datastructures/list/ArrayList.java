@@ -28,18 +28,35 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void add(T value, int index) {
-        validateIndex(index, size);
-        if (size == array.length) {
-            ensureCapacityIfGrowNeeded();
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Invalid index");
         }
-        array[index] = value;
-        size++;
-    }
 
-    @Override
-    public T get(int index) {
-        validateIndex(index, size);
-        return array[index];
+        Node<T> newNode = new Node<>(value);
+
+        if (size == 0) {
+            head = newNode;
+            tail = newNode;
+        } else if (index == 0) {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        } else if (index == size) {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        } else {
+            Node<T> prevNode = getNodeAtIndex(index - 1);
+            Node<T> nextNode = prevNode.next;
+
+            prevNode.next = newNode;
+            newNode.prev = prevNode;
+
+            newNode.next = nextNode;
+            nextNode.prev = newNode;
+        }
+
+        size++;
     }
 
     @Override
