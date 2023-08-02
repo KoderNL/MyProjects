@@ -12,50 +12,19 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void add(T value, int index) {
-        Node newNode = new Node(data);
 
-        if (head == null) {
-            // Если список пустой, устанавливаем новый узел как головной и хвостовой
-            head = newNode;
-            tail = newNode;
-        } else {
-            // Иначе, добавляем новый узел после текущего хвостового
-            tail.next = newNode;
-            newNode.prev = tail;
-            tail = newNode;
-        }
     }
 
     @Override
     public T remove(int index) {
-        T result = null;//will put result
-        Node current = head;;//указатель на первый елемент
-        for (int i = 0; i < index; i++) {
-            current = current.next;//на каждой итерации ложим  в указатель ссылку на следующий
-            if(current.index == index) {//проверяем если в ноде по индексу совпадает верни нам эту ноду
-                result = (T) current;
-            }
-        }
-        return result;
+        return null;
     }
 
     @Override
     public T get(int index) {
-        if (index < 0) {
-            throw new IndexOutOfBoundsException("Индекс не может быть отрицательным: " + index);
-        }
-
-        Node current = head;
-        int currentIndex = 0;
-
-        while (current != null) {
-            if (currentIndex == index) {
-                return current.data;
-            }
-
-            current = current.next;
-            currentIndex++;
+        return null;
     }
+
 
     @Override
     public T set(T value, int index) {
@@ -84,36 +53,12 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public int indexOf(T value) {
-        int index = 0;
-        Node<T> currentNode = head;
-
-        while (currentNode != null) {
-            if (currentNode.getData().equals(value)) {
-                return index;
-            }
-
-            currentNode = currentNode.getNext();
-            index++;
-        }
-
-        return -1;
+        return 0;
     }
 
     @Override
     public int lastIndexOf(T value) {
-        int index = size() - 1;
-        Node<T> currentNode = tail;
-
-        while (currentNode != null) {
-            if (currentNode.getData().equals(value)) {
-                return index;
-            }
-
-            currentNode = currentNode.getPrev();
-            index--;
-        }
-
-        return -1;
+        return 0;
     }
 
     @Override

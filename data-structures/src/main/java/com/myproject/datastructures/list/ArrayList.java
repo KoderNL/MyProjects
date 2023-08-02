@@ -28,34 +28,11 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void add(T value, int index) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Invalid index");
+        validateIndex(index, size);
+        if (size == array.length) {
+            ensureCapacityIfGrowNeeded();
         }
-
-        Node<T> newNode = new Node<>(value);
-
-        if (size == 0) {
-            head = newNode;
-            tail = newNode;
-        } else if (index == 0) {
-            newNode.next = head;
-            head.prev = newNode;
-            head = newNode;
-        } else if (index == size) {
-            tail.next = newNode;
-            newNode.prev = tail;
-            tail = newNode;
-        } else {
-            Node<T> prevNode = getNodeAtIndex(index - 1);
-            Node<T> nextNode = prevNode.next;
-
-            prevNode.next = newNode;
-            newNode.prev = prevNode;
-
-            newNode.next = nextNode;
-            nextNode.prev = newNode;
-        }
-
+        array[index] = value;
         size++;
     }
 
@@ -114,6 +91,13 @@ public class ArrayList<T> implements List<T> {
         size--;
         return valueToRemove;
     }
+
+    @Override
+    public T get(int index) {
+        validateIndex(index,size);
+        return array[index];
+    }
+
     @Override
     public boolean isEmpty() {
         return size == 0;
