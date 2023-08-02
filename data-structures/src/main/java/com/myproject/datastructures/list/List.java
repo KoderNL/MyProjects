@@ -15,5 +15,4 @@ public interface List<T> extends Iterable<T> {
         int indexOf(T value);
         int lastIndexOf(T value);
         String toString();
-        int getCapacity();
 }

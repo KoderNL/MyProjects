@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
-public class ArrayList<T> implements List<T> {
+public class ArrayList<T> extends AbstractList<T> {
     private T[] array;
     private int size;
     private static final int DEFAULT_INITIAL_CAPACITY = 2;
@@ -97,12 +97,10 @@ public class ArrayList<T> implements List<T> {
         validateIndex(index,size);
         return array[index];
     }
-
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
-
     @Override
     public int size() {
         return size;
