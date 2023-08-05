@@ -67,6 +67,11 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
+    @DisplayName("Try Send to IndexOf element that is not in the list throw ElementNotFoundException")
+    @Test
+    public void testTrySendToIndexOfElementThatIsNotInTheListThrowElementNotFoundException() {
+
+    }
     @DisplayName("Get value to index that is larger then the size of list throw IndexOutOfBoundsException")
     @Test
     public void testGetValueToIndexThatIsLargerThanTheSizeOfListThrowIndexOutOfBoundsException() {
@@ -84,11 +89,11 @@ public abstract class AbstractListTest {
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
 
-    @DisplayName("Add and remove and change size work correctly")
+    @DisplayName("Add and to empty list and add to end of list and remove and change size work correctly")
     @Test
-    public void testAddAndRemoveAndChangeSizeWorkCorrectly() {
-        list.add("1000");
-        list.add(2000,1);
+    public void testAddToEmptyListAndAddToEndOfListAndRemoveAndChangeSizeWorkCorrectly() {
+        list.add("1000");//add to empty list
+        list.add(2000,1);//add to end list
         assertEquals(2,list.size());
         list.remove(1);//
         list.remove(0);
@@ -160,6 +165,7 @@ public abstract class AbstractListTest {
         list.set(111,1);
         assertEquals(111,list.get(1));
     }
+
     @DisplayName("Get value")
     @Test
     public void testGetValue() {
@@ -191,4 +197,9 @@ public abstract class AbstractListTest {
         assertEquals("[V, W, T5, null]",list.toString());
     }
 
+    private class ElementNotFoundException extends RuntimeException {
+        private ElementNotFoundException(String message) {
+            super(message);
+        }
+    }
 }

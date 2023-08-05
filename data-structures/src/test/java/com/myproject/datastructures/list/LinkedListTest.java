@@ -24,4 +24,16 @@ public class LinkedListTest extends AbstractListTest {
         Assertions.assertTrue(linkedList.isEmpty());
     }
 
+    @DisplayName("Add to the beginning of linked list and size and linking work correctly")
+    @Test
+    public void testAddToTheBeginningOfLinkedListAndSizeAndLinkingChangeSizeWorkCorrectly() {
+
+    }
+
+    @DisplayName("Add to the middle of linked list and size and linking work correctly")
+    @Test
+    public void testAddToTheMiddleOfLinkedListAndSizeAndLinkingAndChangeSizeWorkCorrectly() {
+
+    }
+
 }

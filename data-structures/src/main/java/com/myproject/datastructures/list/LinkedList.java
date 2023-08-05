@@ -24,19 +24,19 @@ public class LinkedList<T> extends AbstractList<T> {
         validateIndex(index,size);
 
         Node NewNode = new Node(value);
-        if(size == 0) {
+        if(size == 0) {//add to start in empty LL
             head = tail = NewNode;
             head.value = value;
             head.index = size;
             size++;
-        } else if(index == size - 1) {
+        } else if(index == size - 1) {//add to end of LL
             NewNode.value = value;
             NewNode.prev = tail;
             NewNode.index = index;
             tail.next = NewNode;
             tail = NewNode;
             size++;
-        } else if(index == 0) {
+        } else if(index == 0) {//add to start of LL
             NewNode.value = value;
             NewNode.next = head;
             NewNode.index = index;
@@ -133,7 +133,7 @@ public class LinkedList<T> extends AbstractList<T> {
             }
             current = current.next;
         }
-        return -1;
+        return throw ;
     }
 
     @Override
