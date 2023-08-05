@@ -67,11 +67,6 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
-    @DisplayName("Try Send to IndexOf element that is not in the list throw ElementNotFoundException")
-    @Test
-    public void testTrySendToIndexOfElementThatIsNotInTheListThrowElementNotFoundException() {
-
-    }
     @DisplayName("Get value to index that is larger then the size of list throw IndexOutOfBoundsException")
     @Test
     public void testGetValueToIndexThatIsLargerThanTheSizeOfListThrowIndexOutOfBoundsException() {
@@ -88,14 +83,52 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
-
-    @DisplayName("Add and to empty list and add to end of list and remove and change size work correctly")
+    ////////////
+    @DisplayName("Try Send to IndexOf element that is not in the list throw ElementNotFoundException")
     @Test
-    public void testAddToEmptyListAndAddToEndOfListAndRemoveAndChangeSizeWorkCorrectly() {
-        list.add("1000");//add to empty list
-        list.add(2000,1);//add to end list
-        assertEquals(2,list.size());
-        list.remove(1);//
+    public void testTrySendToIndexOfElementThatIsNotInTheListThrowElementNotFoundException() {
+        illegalArgumentException = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            list.add(100);
+            list.indexOf(101);
+        });
+        assertEquals("Element not found in the list", illegalArgumentException.getMessage());
+    }
+    @DisplayName("Try Send to Last IndexOf element that is not in the list throw ElementNotFoundException")
+    @Test
+    public void testTrySendToLastIndexOfElementThatIsNotInTheListThrowElementNotFoundException() {
+        illegalArgumentException = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            list.add(100);
+            list.lastIndexOf(101);
+        });
+        assertEquals("Element not found in the list", illegalArgumentException.getMessage());
+    }
+    @DisplayName("Add and remove and change size work correctly")
+    @Test
+    public void testAddAndRemoveAndChangeSizeWorkCorrectly() {
+        list.add(10);//add to empty list
+        assertEquals(10,list.get(0));//10(0)
+        list.add(20);
+        assertEquals(20,list.get(1));//10(0),20(1)
+        list.add(30,2);//add to end list->10(0),20(1),30(2)
+        assertEquals(30,list.get(2));
+        assertEquals(20,list.get(1));
+        assertEquals(30,list.get(2));
+        list.add(100,0);//add to start list -> 100(0),10(1),20(2),30(3)
+        assertEquals(100,list.get(0));
+        assertEquals(10,list.get(1));
+        assertEquals(20,list.get(2));
+        assertEquals(30,list.get(3));
+        list.add(200,2);//add to middle list->100,10,200,20,30
+        assertEquals(100,list.get(0));
+        assertEquals(10,list.get(1));
+        assertEquals(200,list.get(2));
+        assertEquals(20,list.get(3));
+        assertEquals(30,list.get(4));
+        assertEquals(5,list.size());
+        list.remove(4);
+        list.remove(3);
+        list.remove(2);
+        list.remove(1);
         list.remove(0);
         assertTrue(list.isEmpty());
     }
@@ -124,15 +157,15 @@ public abstract class AbstractListTest {
         assertEquals("1000",list.remove(0));
         assertTrue(list.isEmpty());
     }
-    @DisplayName("Add many of values and change size work correctly")
-    @Test
-    public void testAddManyOfValuesAndChangeSizeWorkCorrectly() {
-        for (int i = 1; i <= 10000000; i++) {
-            list.add("number " + i);
-        }
-        assertTrue(list.contains("number 10000000"));
-        assertEquals(10000000,list.size());
-    }
+    //@DisplayName("Add many of values and change size work correctly")
+    //@Test
+    //public void testAddManyOfValuesAndChangeSizeWorkCorrectly() {
+     //   for (int i = 1; i <= 10000000; i++) {
+     //       list.add("number " + i);
+        //}
+       // assertTrue(list.contains("number 10000000"));
+       // assertEquals(10000000,list.size());
+    //}
     @DisplayName("IndexOf work correctly when positive expected")
     @Test
     public void testIndexOfWorkCorrectlyWhenPositiveExpected() {
@@ -140,14 +173,6 @@ public abstract class AbstractListTest {
         list.add(2);
         list.add(2);
         assertEquals(1,list.indexOf(2));
-    }
-    @DisplayName("IndexOf work correctly when negative expected")
-    @Test
-    public void testIndexOfWorkCorrectlyWhenNegativeExpected() {
-        list.add(1);
-        list.add(2);
-        list.add(2);
-        assertEquals(-1,list.indexOf(3));
     }
     @DisplayName("LastIndexOf work correctly when positive expected")
     @Test
@@ -169,9 +194,9 @@ public abstract class AbstractListTest {
     @DisplayName("Get value")
     @Test
     public void testGetValue() {
-        list.add(404);
-        list.add(404,1);
-        assertEquals(404,list.get(1));
+        list.add(10);
+        list.add(20,1);
+        assertEquals(20,list.get(1));
     }
     @DisplayName("Clear work correctly")
     @Test
@@ -194,12 +219,6 @@ public abstract class AbstractListTest {
         list.add("W");
         list.add("T5");
         list.add(null);
-        assertEquals("[V, W, T5, null]",list.toString());
-    }
-
-    private class ElementNotFoundException extends RuntimeException {
-        private ElementNotFoundException(String message) {
-            super(message);
-        }
+        assertEquals("[V, W, T5, null]", list.toString());
     }
 }

@@ -53,8 +53,7 @@ public class ArrayList<T> extends AbstractList<T> {
                 return index;
             }
         }
-
-        return -1;
+        throw new IllegalArgumentException("Element not found in the list");
     }
 
     @Override

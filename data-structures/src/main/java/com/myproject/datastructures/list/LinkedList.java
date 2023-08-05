@@ -29,7 +29,7 @@ public class LinkedList<T> extends AbstractList<T> {
             head.value = value;
             head.index = size;
             size++;
-        } else if(index == size - 1) {//add to end of LL
+        } else if(index == size ) {//add to end of LL
             NewNode.value = value;
             NewNode.prev = tail;
             NewNode.index = index;
@@ -43,8 +43,39 @@ public class LinkedList<T> extends AbstractList<T> {
             head.prev = NewNode;
             head = NewNode;
             size++;
+            Node current = head.next;
+            for (int i = 1; i < size; i++) {
+                current.index = current.index + 1;
+                if (current.next == null) {
+                    break;
+                }
+                current = current.next;
+            }
         }
+        else if(index > 0 && index < size - 1) {//add to middle
+            Node current = head;
+            for (int i = 0; i < index; i++) {
+                if (i == index - 1) {
+                    NewNode.index = index;
+                    NewNode.value = value;
+                    NewNode.next = current.next;
+                    NewNode.prev = current;
+                    current.next = NewNode;
+                    current.next.next.prev = NewNode;
+                    size++;
+                }
+                current = current.next;
+            }
+            current = current.next;
 
+            for (int i = current.index; i < size; i++) {
+                current.index = current.index + 1;
+                if (current.next == null) {
+                    break;
+                }
+                current = current.next;
+            }
+        }
     }
 
     @Override
@@ -74,7 +105,11 @@ public class LinkedList<T> extends AbstractList<T> {
         T result = null;
         Node current = head;
         for (int i = 0; i <= index; i++) {
-            if(current.index == index){
+            if(current.index == index) {
+                result = current.value;
+                break;
+            }
+            if(head.next == null){
                 result = current.value;
                 break;
             }
@@ -133,15 +168,13 @@ public class LinkedList<T> extends AbstractList<T> {
             }
             current = current.next;
         }
-        return throw ;
+        throw new IllegalArgumentException("Element not found in the list");
     }
 
     @Override
     public int lastIndexOf(T value) {
         return 0;
     }
-
-
 
     @Override
     public Iterator<T> iterator() {
@@ -156,6 +189,9 @@ public class LinkedList<T> extends AbstractList<T> {
         public Node(T value){
             this.value = value;
         }
+    }
+    private void indexCorrection() {
+
     }
     private void validateIndex(int index, int size) {
         if(index < 0) {
