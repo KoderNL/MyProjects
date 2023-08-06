@@ -3,7 +3,6 @@ package com.myproject.datastructures.list;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 

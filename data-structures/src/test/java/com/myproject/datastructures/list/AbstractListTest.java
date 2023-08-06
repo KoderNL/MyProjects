@@ -28,6 +28,7 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
+
     @DisplayName("Remove index that is larger then size of list throw IndexOutOfBoundsException")
     @Test
     public void testRemoveIndexThatIsLargerThenSizeOfListThrowIndexOutOfBoundsException() {
@@ -36,6 +37,7 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
+
     @DisplayName("Remove index that is less then zero  throw IndexOutOfBoundsException")
     @Test
     public void testRemoveIndexThatIsLessThenZeroThrowIndexOutOfBoundsException() {
@@ -44,7 +46,7 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
-    //
+
     @DisplayName("Set value to index that is larger then the size of list throw IndexOutOfBoundsException")
     @Test
     public void testSetValueToIndexThatIsLargerThanTheSizeOfListThrowIndexOutOfBoundsException() {
@@ -53,6 +55,7 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
+
     @DisplayName("Add value to index that is larger than the size of list throw IndexOutOfBoundsException")
     @Test
     public void testAddValueToIndexThatIsLargerThenTheSizeOfListThrowIndexOutOfBoundsException() {
@@ -61,6 +64,7 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
+
     @DisplayName("Set value to index that is less then zero throw IndexOutOfBoundsException")
     @Test
     public void testSetValueToIndexThatIsLessThenZeroThrowIndexOutOfBoundsException() {
@@ -69,6 +73,7 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
+
     @DisplayName("Get value to index that is larger then the size of list throw IndexOutOfBoundsException")
     @Test
     public void testGetValueToIndexThatIsLargerThanTheSizeOfListThrowIndexOutOfBoundsException() {
@@ -77,6 +82,7 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index 3 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
+
     @DisplayName("Get value to index that is less then zero throw IndexOutOfBoundsException")
     @Test
     public void testGetValueToIndexThatIsLessThenZeroThrowIndexOutOfBoundsException() {
@@ -85,6 +91,7 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
+
     @DisplayName("Try Send to IndexOf element that is not in the list throw ElementNotFoundException")
     @Test
     public void testTrySendToIndexOfElementThatIsNotInTheListThrowElementNotFoundException() {
@@ -95,6 +102,7 @@ public abstract class AbstractListTest {
         });
         assertEquals("Element not found in the list", illegalArgumentException.getMessage());
     }
+
     @DisplayName("Try Send to Last IndexOf element that is not in the list throw ElementNotFoundException")
     @Test
     public void testTrySendToLastIndexOfElementThatIsNotInTheListThrowElementNotFoundException() {
@@ -118,6 +126,7 @@ public abstract class AbstractListTest {
         assertEquals(30,list.get(3));
         assertEquals(4,list.size());
     }
+
     @DisplayName("Add to end of list and size work correctly")
     @Test
     public void testAddToEndOfListAndSizeWorkCorrectly() {
@@ -131,6 +140,7 @@ public abstract class AbstractListTest {
         assertEquals(10,list.get(0));
         assertEquals(3,list.size());
     }
+
     @DisplayName("Add to middle of list and size work correctly")
     @Test
     public void testAddToMiddleOfListAndSizeWorkCorrectly() {
@@ -146,6 +156,7 @@ public abstract class AbstractListTest {
         assertEquals(40,list.get(4));
         assertEquals(5,list.size());
     }
+
     @DisplayName("Remove from start of list and size work correctly")
     @Test
     public void testRemoveFromStartOfListAndSizeWorkCorrectly() {
@@ -160,6 +171,7 @@ public abstract class AbstractListTest {
         assertEquals(0,list.size());
         assertTrue(list.isEmpty());
     }
+
     @DisplayName("Remove from end of list and size work correctly")
     @Test
     public void testRemoveFromEndOfListAndSizeWorkCorrectly() {
@@ -172,6 +184,7 @@ public abstract class AbstractListTest {
         assertEquals(20,list.remove(1));
         assertEquals(1,list.size());
     }
+
     @DisplayName("Remove from middle of list and size work correctly")
     @Test
     public void testRemoveFromMiddleOfListAndSizeWorkCorrectly() {
@@ -183,6 +196,7 @@ public abstract class AbstractListTest {
         assertEquals(20,list.remove(1));
         assertEquals(2,list.size());
     }
+
     @DisplayName("Add different types in list and size work correctly")
     @Test
     public void testAddDifferentTypesInListAndSizeWorkCorrectly() {
@@ -206,6 +220,7 @@ public abstract class AbstractListTest {
         assertEquals("1000",list.get(0));
         assertEquals(9,list.size());
     }
+
     @DisplayName("IndexOf work correctly when positive expected")
     @Test
     public void testIndexOfWorkCorrectlyWhenPositiveExpected() {
@@ -226,6 +241,7 @@ public abstract class AbstractListTest {
         list.add(10);
         assertEquals(3,list.lastIndexOf(10));
     }
+
     @DisplayName("Set value")
     @Test
     public void testSetValue() {
@@ -242,6 +258,7 @@ public abstract class AbstractListTest {
         list.add(20,1);
         assertEquals(20,list.get(1));
     }
+
     @DisplayName("Clear work correctly")
     @Test
     public void testClearWorkCorrectly() {
@@ -251,6 +268,7 @@ public abstract class AbstractListTest {
         list.clear();
         assertTrue(list.isEmpty());
     }
+
     @DisplayName("Contains value")
     @Test
     public void testContainsValue() {
@@ -258,6 +276,7 @@ public abstract class AbstractListTest {
         list.add("2",1);
         assertTrue(list.contains("2"));
     }
+
     @DisplayName("String output")
     @Test
     public void testStringOutput() {
@@ -270,11 +289,13 @@ public abstract class AbstractListTest {
         list.add("CoderNL",6);
         assertEquals("[1000, 2000, A, true, null, 2.0, CoderNL]", list.toString());
     }
+
     @DisplayName("List is empty after initialization")
     @Test
     public void listIsEmptyAfterInitialization() {
         Assertions.assertTrue(list.isEmpty());
     }
+
     @DisplayName("Iterator work correctly")
     @Test
     public void testIteratorWorkCorrectly() {

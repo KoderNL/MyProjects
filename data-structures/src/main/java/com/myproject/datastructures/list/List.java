@@ -1,7 +1,5 @@
 package com.myproject.datastructures.list;
 
-import java.util.Iterator;
-
 public interface List<T> extends Iterable<T> {
         void add(T value);
         void add(T value, int index);

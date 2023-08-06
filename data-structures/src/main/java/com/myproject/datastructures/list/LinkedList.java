@@ -8,14 +8,16 @@ public class LinkedList<T> extends AbstractList<T> {
     private Node head;
     private Node tail;
     private int size;
+
     public LinkedList() {
         head = new Node(null);
-
     }
+
     public LinkedList(T value) {
         head = new Node(value);
         head.value = value;
     }
+
     @Override
     public void add(T value) {
         add(value,size);
@@ -24,8 +26,8 @@ public class LinkedList<T> extends AbstractList<T> {
     @Override
     public void add(T value, int index) {
         validateIndex(index,size);
-
         Node NewNode = new Node(value);
+
         if(size == 0) {
             head = tail = NewNode;
             head.value = value;
@@ -156,7 +158,6 @@ public class LinkedList<T> extends AbstractList<T> {
         }
         return result;
     }
-
 
     @Override
     public T set(T value, int index) {

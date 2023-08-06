@@ -1,7 +1,5 @@
 package com.myproject.datastructures.list;
 
-import org.w3c.dom.Node;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
@@ -10,7 +8,6 @@ public class ArrayList<T> extends AbstractList<T> {
     private T[] array;
     private int size;
     private static final int DEFAULT_INITIAL_CAPACITY = 2;
-
     public ArrayList() {
         this(DEFAULT_INITIAL_CAPACITY);
     }
@@ -83,10 +80,12 @@ public class ArrayList<T> extends AbstractList<T> {
         }
         throw new IllegalArgumentException("Element not found in the list");
     }
+
     @Override
     public boolean contains(T value) {
         return indexOf(value) != -1;
     }
+
     @Override
     public void clear() {
         for (int i = 0; i < size; i++) {
@@ -94,6 +93,7 @@ public class ArrayList<T> extends AbstractList<T> {
         }
         size = 0;
     }
+
     @Override
     public T remove(int index) {
         validateIndex(index, size);
@@ -111,10 +111,12 @@ public class ArrayList<T> extends AbstractList<T> {
         validateIndex(index,size);
         return array[index];
     }
+
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
+
     @Override
     public int size() {
         return size;
@@ -164,12 +166,14 @@ public class ArrayList<T> extends AbstractList<T> {
             allowedToRemove = false;
         }
     }
+
     private void ensureCapacityIfGrowNeeded() {
         @SuppressWarnings("unchecked")
         T[] newArray = (T[]) new Object[(int) Math.round(array.length * 1.5)];
         System.arraycopy(array,0,newArray,0,size);
         array = newArray;
     }
+
     private void validateIndex(int index, int size) {
         if(index < 0) {
             throw new IndexOutOfBoundsException("Index " + index + " out of bounds size " + size);
