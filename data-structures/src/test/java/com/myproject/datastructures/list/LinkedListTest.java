@@ -17,10 +17,4 @@ public class LinkedListTest extends AbstractListTest {
     protected List getList() {
         return new LinkedList();
     }
-
-    @DisplayName("Linked list is empty after initialization")
-    @Test
-    public void testLinkedListIsEmptyAfterInitialization() {
-        Assertions.assertTrue(linkedList.isEmpty());
-    }
 }

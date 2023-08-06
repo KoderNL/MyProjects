@@ -1,6 +1,7 @@
 package com.myproject.datastructures.list;
 
 import java.util.Iterator;
+import java.util.StringJoiner;
 
 public class LinkedList<T> extends AbstractList<T> {
     private Node head;
@@ -82,13 +83,20 @@ public class LinkedList<T> extends AbstractList<T> {
     public T remove(int index) {
         validateIndex(index,size);
         T oldValue = null;
-        Node current = head;
-        if(index == 0) {
-            oldValue = current.value;
-            current.value = null;
-            head = current.next;
-            current.next = null;
-            current = head;
+        Node current = null;
+        if(index == 0 && size == 1) {//remove when only one element
+            oldValue = head.value;
+            head.value = null;
+            tail = head = null;
+        }
+
+        if(index == 0 && size != 1) {//remove from Start and size more than 1
+            current = head.next;
+            current.prev = null;
+            oldValue = head.value;
+            head.next = null;
+            head.value = null;
+            head = current;
             for (int i = 0; i < size; i++) {
                 current.index = current.index - 1;
                 if (current.next == null) {
@@ -97,13 +105,35 @@ public class LinkedList<T> extends AbstractList<T> {
                 current = current.next;
             }
         }
-        if(index == size - 1) {
-            current = tail;
-            oldValue = current.value;
-            tail = current.prev;
+
+        if(index == size - 1 && size != 1) {//Remove from End and when size more than 1
+            current = tail.prev;
+            current.next = null;
+            oldValue = tail.value;
             tail.next = null;
-            current.prev = null;
-            current.value = null;
+            tail.prev = null;
+            tail = current;
+        }
+        if(index != size - 1 && size != 1) {//Remove from middle and when size more than 1
+            current = head;
+            for (int i = 0; i < index; i++) {
+                if(current.next.index == index) {
+                    oldValue = current.next.value;
+                    current.next.next.prev = current;
+                    current.next = current.next.next;
+                    current.next.prev = null;
+                    current.next.next = null;
+                    current.next.value = null;
+                }
+                current = current.next;
+            }
+            for (int i = 0; i < size; i++) {
+                current.index = current.index - 1;
+                if (current.next == null) {
+                    break;
+                }
+                current = current.next;
+            }
         }
         size--;
         return oldValue;
@@ -134,13 +164,10 @@ public class LinkedList<T> extends AbstractList<T> {
         validateIndex(index,size);
         Node current = head;
         T oldValue = null;
-        for (int i = 0; i <= index; i++) {
-            if(current.index == index) {
-                oldValue = current.value;
-                current.value = value;
-            }
-            if(current.next != null){
-                current = current.next;
+        for (int i = 0; i < index; i++) {
+            if(current.next.index == index) {
+                oldValue = current.next.value;
+                current.next.value = value;
             }
         }
         return oldValue;
@@ -195,7 +222,29 @@ public class LinkedList<T> extends AbstractList<T> {
 
     @Override
     public int lastIndexOf(T value) {
-        return 0;
+        int lastIndexOf = indexOf(value);
+        Node current = head;
+        for (int i = indexOf(value) + 1; i < size; i++) {
+                if(current.value.equals(value)) {
+                    lastIndexOf = current.index;
+                }
+            current = current.next;
+        }
+        return lastIndexOf;
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner listContents = new StringJoiner(", ","[","]");
+        Node current = head;
+        for (int i = 0; i < size; i++) {
+            if(current.value == null) {
+                current.value = (T) "null";
+            }
+            listContents.add(current.value.toString());
+            current = current.next;
+        }
+        return listContents.toString();
     }
 
     @Override

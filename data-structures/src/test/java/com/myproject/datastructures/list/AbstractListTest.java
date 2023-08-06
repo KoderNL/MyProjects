@@ -83,13 +83,13 @@ public abstract class AbstractListTest {
         });
         assertEquals("Index -1 out of bounds size 0",indexOutOfBoundsException.getMessage());
     }
-    ////////////
     @DisplayName("Try Send to IndexOf element that is not in the list throw ElementNotFoundException")
     @Test
     public void testTrySendToIndexOfElementThatIsNotInTheListThrowElementNotFoundException() {
         illegalArgumentException = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             list.add(100);
             list.indexOf(101);
+            list.lastIndexOf(101);
         });
         assertEquals("Element not found in the list", illegalArgumentException.getMessage());
     }
@@ -102,9 +102,23 @@ public abstract class AbstractListTest {
         });
         assertEquals("Element not found in the list", illegalArgumentException.getMessage());
     }
-    @DisplayName("Add and remove and change size work correctly")
+
+    @DisplayName("Add to start of list and size work correctly")
     @Test
-    public void testAddAndRemoveAndChangeSizeWorkCorrectly() {
+    public void testAddToStartOfListAndSizeWorkCorrectly() {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(100,0);
+        assertEquals(100,list.get(0));
+        assertEquals(10,list.get(1));
+        assertEquals(20,list.get(2));
+        assertEquals(30,list.get(3));
+        assertEquals(4,list.size());
+    }
+    @DisplayName("Add to end of list and size work correctly")
+    @Test
+    public void testAddToEndOfListAndSizeWorkCorrectly() {
         list.add(10);
         assertEquals(10,list.get(0));
         list.add(20);
@@ -112,59 +126,60 @@ public abstract class AbstractListTest {
         list.add(30,2);
         assertEquals(30,list.get(2));
         assertEquals(20,list.get(1));
-        assertEquals(30,list.get(2));
-        list.add(100,0);
-        assertEquals(100,list.get(0));
-        assertEquals(10,list.get(1));
-        assertEquals(20,list.get(2));
-        assertEquals(30,list.get(3));
-        list.add(200,2);
-        assertEquals(100,list.get(0));
-        assertEquals(10,list.get(1));
-        assertEquals(200,list.get(2));
-        assertEquals(20,list.get(3));
-        assertEquals(30,list.get(4));
-        assertEquals(5,list.size());
-        list.remove(0);
-        assertEquals(4,list.size());
-        list.remove(2);
+        assertEquals(10,list.get(0));
         assertEquals(3,list.size());
-        list.remove(2);
-        assertEquals(2,list.size());
-        list.remove(1);
-        assertEquals(1,list.size());
-        list.remove(0);
-        assertTrue(list.isEmpty());
-    }
-    @DisplayName("Add to start of list and size work correctly")
-    @Test
-    public void testAddToStartOfListAndSizeWorkCorrectly() {
-
-    }
-    @DisplayName("Add to end of list and size work correctly")
-    @Test
-    public void testAddToEndOfListAndSizeWorkCorrectly() {
-
     }
     @DisplayName("Add to middle of list and size work correctly")
     @Test
     public void testAddToMiddleOfListAndSizeWorkCorrectly() {
-
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        list.add(1000,2);
+        assertEquals(10,list.get(0));
+        assertEquals(20,list.get(1));
+        assertEquals(1000,list.get(2));
+        assertEquals(30,list.get(3));
+        assertEquals(40,list.get(4));
+        assertEquals(5,list.size());
     }
     @DisplayName("Remove from start of list and size work correctly")
     @Test
     public void testRemoveFromStartOfListAndSizeWorkCorrectly() {
-
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        assertEquals(10,list.remove(0));
+        assertEquals(20,list.remove(0));
+        assertEquals(30,list.remove(0));
+        assertEquals(40,list.remove(0));
+        assertEquals(0,list.size());
+        assertTrue(list.isEmpty());
     }
     @DisplayName("Remove from end of list and size work correctly")
     @Test
     public void testRemoveFromEndOfListAndSizeWorkCorrectly() {
-
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        assertEquals(40,list.remove(3));
+        assertEquals(30,list.remove(2));
+        assertEquals(20,list.remove(1));
+        assertEquals(1,list.size());
     }
     @DisplayName("Remove from middle of list and size work correctly")
     @Test
     public void testRemoveFromMiddleOfListAndSizeWorkCorrectly() {
-
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        assertEquals(30,list.remove(2));
+        assertEquals(20,list.remove(1));
+        assertEquals(2,list.size());
     }
     @DisplayName("Add different types in list and size work correctly")
     @Test
@@ -197,13 +212,17 @@ public abstract class AbstractListTest {
         list.add(2);
         assertEquals(1,list.indexOf(2));
     }
+
     @DisplayName("LastIndexOf work correctly when positive expected")
     @Test
-    public void testLastIndexOfWork() {
-        list.add(1);
-        list.add(2);
-        list.add(2);
-        assertEquals(2,list.lastIndexOf(2));
+    public void testLastIndexOfWorkCorrectlyWhenPositiveExpected() {
+        list.add(20);
+        list.add(10);
+        list.add(30);
+        list.add(10);
+        list.add(50);
+        list.add(10);
+        assertEquals(3,list.lastIndexOf(10));
     }
     @DisplayName("Set value")
     @Test
@@ -240,10 +259,21 @@ public abstract class AbstractListTest {
     @DisplayName("String output")
     @Test
     public void testStringOutput() {
-        list.add("V");
-        list.add("W");
-        list.add("T5");
-        list.add(null);
-        assertEquals("[V, W, T5, null]", list.toString());
+        list.add("1000");
+        list.add(2000,1);
+        list.add('A',2);
+        list.add(true,3);
+        list.add(null,4);
+        list.add(2.0,5);
+        list.add(1234567890L,6);
+        list.add(3.14f,7);
+        list.add("CoderNL",8);
+        assertEquals("[1000, 2000, A, true, null, 2.0, 1234567890L, 3.14f, CoderNL]", list.toString());
+    }
+    @DisplayName("List is empty after initialization")
+    @Test
+    public void listIsEmptyAfterInitialization() {
+        Assertions.assertTrue(list.isEmpty());
     }
 }
+

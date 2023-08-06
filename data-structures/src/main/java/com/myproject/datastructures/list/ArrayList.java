@@ -58,15 +58,14 @@ public class ArrayList<T> extends AbstractList<T> {
 
     @Override
     public int lastIndexOf(T value) {
-        int numberLastOfIndexOf = -1;
         T lastOfIndexOf;
         for (int index = indexOf(value) + 1; index < size; index++) {
             lastOfIndexOf = array[index];
             if(value.equals(lastOfIndexOf)) {
-                numberLastOfIndexOf = index;
+                return index;
             }
         }
-        return numberLastOfIndexOf;
+        throw new IllegalArgumentException("Element not found in the list");
     }
     @Override
     public boolean contains(T value) {
@@ -105,6 +104,7 @@ public class ArrayList<T> extends AbstractList<T> {
         return size;
     }
 
+    @Override
     public String toString() {
         StringJoiner listContents = new StringJoiner(", ","[","]");
         for (int i = 0; i < size; i++) {
