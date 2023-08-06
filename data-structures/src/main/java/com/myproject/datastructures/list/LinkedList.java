@@ -24,19 +24,19 @@ public class LinkedList<T> extends AbstractList<T> {
         validateIndex(index,size);
 
         Node NewNode = new Node(value);
-        if(size == 0) {//add to start in empty LL
+        if(size == 0) {
             head = tail = NewNode;
             head.value = value;
             head.index = size;
             size++;
-        } else if(index == size ) {//add to end of LL
+        } else if(index == size ) {
             NewNode.value = value;
             NewNode.prev = tail;
             NewNode.index = index;
             tail.next = NewNode;
             tail = NewNode;
             size++;
-        } else if(index == 0) {//add to start of LL
+        } else if(index == 0) {
             NewNode.value = value;
             NewNode.next = head;
             NewNode.index = index;
@@ -83,19 +83,29 @@ public class LinkedList<T> extends AbstractList<T> {
         validateIndex(index,size);
         T oldValue = null;
         Node current = head;
-        for (int i = 0; i <= index; i++) {
-            if (current.next.index == index) {
-                oldValue = current.next.value;
-
-                current.next = current.next.next;
-                current.next.next.prev = current;
-
-                current.next.next = null;
-                current.next.prev = null;
-                current.next.value = null;
+        if(index == 0) {
+            oldValue = current.value;
+            current.value = null;
+            head = current.next;
+            current.next = null;
+            current = head;
+            for (int i = 0; i < size; i++) {
+                current.index = current.index - 1;
+                if (current.next == null) {
+                    break;
+                }
+                current = current.next;
             }
-            current = current.next;
         }
+        if(index == size - 1) {
+            current = tail;
+            oldValue = current.value;
+            tail = current.prev;
+            tail.next = null;
+            current.prev = null;
+            current.value = null;
+        }
+        size--;
         return oldValue;
     }
 
@@ -129,6 +139,9 @@ public class LinkedList<T> extends AbstractList<T> {
                 oldValue = current.value;
                 current.value = value;
             }
+            if(current.next != null){
+                current = current.next;
+            }
         }
         return oldValue;
     }
@@ -136,12 +149,21 @@ public class LinkedList<T> extends AbstractList<T> {
     @Override
     public void clear() {
         Node current = head;
+        Node temporary = null;
         for (int i = 0; i < size; i++) {
-            Node temporary = current.next;
+            if(current.next == null) {
+                current.prev = null;
+                current.value = null;
+                break;
+            }
+            temporary = current.next;
             current.prev = null;
             current.next = null;
+            current.value = null;
             current = temporary;
         }
+        head = tail = null;
+        size = 0;
     }
 
     @Override

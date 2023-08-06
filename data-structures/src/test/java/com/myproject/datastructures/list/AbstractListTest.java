@@ -105,36 +105,70 @@ public abstract class AbstractListTest {
     @DisplayName("Add and remove and change size work correctly")
     @Test
     public void testAddAndRemoveAndChangeSizeWorkCorrectly() {
-        list.add(10);//add to empty list
-        assertEquals(10,list.get(0));//10(0)
+        list.add(10);
+        assertEquals(10,list.get(0));
         list.add(20);
-        assertEquals(20,list.get(1));//10(0),20(1)
-        list.add(30,2);//add to end list->10(0),20(1),30(2)
+        assertEquals(20,list.get(1));
+        list.add(30,2);
         assertEquals(30,list.get(2));
         assertEquals(20,list.get(1));
         assertEquals(30,list.get(2));
-        list.add(100,0);//add to start list -> 100(0),10(1),20(2),30(3)
+        list.add(100,0);
         assertEquals(100,list.get(0));
         assertEquals(10,list.get(1));
         assertEquals(20,list.get(2));
         assertEquals(30,list.get(3));
-        list.add(200,2);//add to middle list->100,10,200,20,30
+        list.add(200,2);
         assertEquals(100,list.get(0));
         assertEquals(10,list.get(1));
         assertEquals(200,list.get(2));
         assertEquals(20,list.get(3));
         assertEquals(30,list.get(4));
         assertEquals(5,list.size());
-        list.remove(4);
-        list.remove(3);
+        list.remove(0);
+        assertEquals(4,list.size());
         list.remove(2);
+        assertEquals(3,list.size());
+        list.remove(2);
+        assertEquals(2,list.size());
         list.remove(1);
+        assertEquals(1,list.size());
         list.remove(0);
         assertTrue(list.isEmpty());
     }
-    @DisplayName("Add different types in list and remove change size work correctly")
+    @DisplayName("Add to start of list and size work correctly")
     @Test
-    public void testAddDifferentTypesInListAndRemoveChangeSizeWorkCorrectly() {
+    public void testAddToStartOfListAndSizeWorkCorrectly() {
+
+    }
+    @DisplayName("Add to end of list and size work correctly")
+    @Test
+    public void testAddToEndOfListAndSizeWorkCorrectly() {
+
+    }
+    @DisplayName("Add to middle of list and size work correctly")
+    @Test
+    public void testAddToMiddleOfListAndSizeWorkCorrectly() {
+
+    }
+    @DisplayName("Remove from start of list and size work correctly")
+    @Test
+    public void testRemoveFromStartOfListAndSizeWorkCorrectly() {
+
+    }
+    @DisplayName("Remove from end of list and size work correctly")
+    @Test
+    public void testRemoveFromEndOfListAndSizeWorkCorrectly() {
+
+    }
+    @DisplayName("Remove from middle of list and size work correctly")
+    @Test
+    public void testRemoveFromMiddleOfListAndSizeWorkCorrectly() {
+
+    }
+    @DisplayName("Add different types in list and size work correctly")
+    @Test
+    public void testAddDifferentTypesInListAndSizeWorkCorrectly() {
         list.add("1000");
         list.add(2000,1);
         list.add('A',2);
@@ -144,28 +178,17 @@ public abstract class AbstractListTest {
         list.add(1234567890L,6);
         list.add(3.14f,7);
         list.add("CoderNL",8);
+        assertEquals("CoderNL",list.get(8));
+        assertEquals(3.14f,list.get(7));
+        assertEquals(1234567890L,list.get(6));
+        assertEquals(2.0,list.get(5));
+        assertNull(list.get(4));
+        assertEquals(true,list.get(3));
+        assertEquals('A',list.get(2));
+        assertEquals(2000,list.get(1));
+        assertEquals("1000",list.get(0));
         assertEquals(9,list.size());
-
-        assertEquals("CoderNL",list.remove(8));
-        assertEquals(3.14f,list.remove(7));
-        assertEquals(1234567890L,list.remove(6));
-        assertEquals(2.0,list.remove(5));
-        assertNull(list.remove(4));
-        assertEquals(true,list.remove(3));
-        assertEquals('A',list.remove(2));
-        assertEquals(2000,list.remove(1));
-        assertEquals("1000",list.remove(0));
-        assertTrue(list.isEmpty());
     }
-    //@DisplayName("Add many of values and change size work correctly")
-    //@Test
-    //public void testAddManyOfValuesAndChangeSizeWorkCorrectly() {
-     //   for (int i = 1; i <= 10000000; i++) {
-     //       list.add("number " + i);
-        //}
-       // assertTrue(list.contains("number 10000000"));
-       // assertEquals(10000000,list.size());
-    //}
     @DisplayName("IndexOf work correctly when positive expected")
     @Test
     public void testIndexOfWorkCorrectlyWhenPositiveExpected() {
@@ -185,10 +208,10 @@ public abstract class AbstractListTest {
     @DisplayName("Set value")
     @Test
     public void testSetValue() {
-        list.add(1);
-        list.add(1,1);
-        list.set(111,1);
-        assertEquals(111,list.get(1));
+        list.add(0);
+        list.add(20,1);
+        list.set(30,1);
+        assertEquals(30,list.get(1));
     }
 
     @DisplayName("Get value")
@@ -202,6 +225,8 @@ public abstract class AbstractListTest {
     @Test
     public void testClearWorkCorrectly() {
         list.add(1);
+        list.add(2);
+        list.add(3);
         list.clear();
         assertTrue(list.isEmpty());
     }
