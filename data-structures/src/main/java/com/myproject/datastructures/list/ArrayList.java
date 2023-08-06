@@ -1,5 +1,7 @@
 package com.myproject.datastructures.list;
 
+import org.w3c.dom.Node;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
@@ -132,7 +134,7 @@ public class ArrayList<T> extends AbstractList<T> {
     public int getCapacity() {return array.length;}
 
     @Override
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         return new MyIterator();
     }
     private class MyIterator implements Iterator<T> {

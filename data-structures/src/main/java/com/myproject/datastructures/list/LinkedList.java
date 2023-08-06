@@ -1,6 +1,7 @@
 package com.myproject.datastructures.list;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 public class LinkedList<T> extends AbstractList<T> {
@@ -247,7 +248,38 @@ public class LinkedList<T> extends AbstractList<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new MyIterator();
+    }
+    private class MyIterator implements Iterator<T> {
+        T value;
+        private int index = 0;
+        private Node current = head;
+        private boolean allowedToRemove;
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public T next() {
+            if(!hasNext()){
+                throw new NoSuchElementException("No elements for iterate");
+            };
+            value = current.value;
+            current = current.next;
+            allowedToRemove = true;
+            return value;
+        }
+
+        @Override
+        public void remove() {
+            if (!allowedToRemove) {
+                throw new IllegalStateException("Not allowed to remove");
+            }
+            LinkedList.this.remove(index - 1);
+            index--;
+            allowedToRemove = false;
+        }
     }
     private class Node {
         T value;
@@ -258,9 +290,6 @@ public class LinkedList<T> extends AbstractList<T> {
         public Node(T value){
             this.value = value;
         }
-    }
-    private void indexCorrection() {
-
     }
     private void validateIndex(int index, int size) {
         if(index < 0) {
