@@ -34,17 +34,4 @@ public class ArrayListTest extends AbstractListTest {
     public void testConstructorWithDefaultInitialCapacityWorkCorrectly() {
         assertEquals(2, arrayList.getCapacity());
     }
-
-    @DisplayName("Iterator work correctly")
-    @Test
-    public void testIteratorWorkCorrectly() {
-        arrayList.add("Test Message #1");
-        arrayList.add("Test Message #2");
-        Iterator iterator = arrayList.iterator();
-        assertTrue(iterator.hasNext());
-        assertEquals("Test Message #1",iterator.next());
-        assertTrue(iterator.hasNext());
-        assertEquals("Test Message #2",iterator.next());
-        assertFalse(iterator.hasNext());
-    }
 }

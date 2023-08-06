@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractListTest {
@@ -272,6 +274,18 @@ public abstract class AbstractListTest {
     @Test
     public void listIsEmptyAfterInitialization() {
         Assertions.assertTrue(list.isEmpty());
+    }
+    @DisplayName("Iterator work correctly")
+    @Test
+    public void testIteratorWorkCorrectly() {
+        list.add("Test Message #1");
+        list.add("Test Message #2");
+        Iterator iterator = list.iterator();
+        assertTrue(iterator.hasNext());
+        assertEquals("Test Message #1",iterator.next());
+        assertTrue(iterator.hasNext());
+        assertEquals("Test Message #2",iterator.next());
+        assertFalse(iterator.hasNext());
     }
 }
 
