@@ -53,7 +53,7 @@ public class LinkedList<T> extends AbstractList<T> {
                 current = current.next;
             }
         }
-        else if(index > 0 && index < size - 1) {//add to middle
+        else if(index > 0 && index < size - 1) {
             Node current = head;
             for (int i = 0; i < index; i++) {
                 if (i == index - 1) {
@@ -84,13 +84,13 @@ public class LinkedList<T> extends AbstractList<T> {
         validateIndex(index,size);
         T oldValue = null;
         Node current = null;
-        if(index == 0 && size == 1) {//remove when only one element
+        if(index == 0 && size == 1) {
             oldValue = head.value;
             head.value = null;
             tail = head = null;
         }
 
-        if(index == 0 && size != 1) {//remove from Start and size more than 1
+        if(index == 0 && size != 1) {
             current = head.next;
             current.prev = null;
             oldValue = head.value;
@@ -106,7 +106,7 @@ public class LinkedList<T> extends AbstractList<T> {
             }
         }
 
-        if(index == size - 1 && size != 1) {//Remove from End and when size more than 1
+        if(index == size - 1 && size != 1) {
             current = tail.prev;
             current.next = null;
             oldValue = tail.value;
@@ -114,7 +114,7 @@ public class LinkedList<T> extends AbstractList<T> {
             tail.prev = null;
             tail = current;
         }
-        if(index != size - 1 && size != 1) {//Remove from middle and when size more than 1
+        if(index != size - 1 && size != 1) {
             current = head;
             for (int i = 0; i < index; i++) {
                 if(current.next.index == index) {
@@ -144,14 +144,12 @@ public class LinkedList<T> extends AbstractList<T> {
         validateIndex(index,size);
         T result = null;
         Node current = head;
-        for (int i = 0; i <= index; i++) {
-            if(current.index == index) {
-                result = current.value;
-                break;
-            }
-            if(head.next == null){
-                result = current.value;
-                break;
+        if (current.index == index) {
+            result = current.value;
+        }
+        for (int i = 0; i < index; i++) {
+            if(current.next.index == index) {
+                result = current.next.value;
             }
             current = current.next;
         }

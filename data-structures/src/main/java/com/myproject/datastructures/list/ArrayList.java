@@ -28,12 +28,26 @@ public class ArrayList<T> extends AbstractList<T> {
 
     @Override
     public void add(T value, int index) {
-        validateIndex(index, size);
         if (size == array.length) {
             ensureCapacityIfGrowNeeded();
         }
-        array[index] = value;
-        size++;
+        validateIndex(index, size);
+        if(index == 0 && size > 0) {
+            for (int i = size; i >= 0; i--) {
+                array[i + 1] = array[i];
+            }
+            array[index] = value;
+            size++;
+        } else if(index > 0 && index < size) {
+            size++;
+            for (int i = size - 2; i >= index; i--) {
+                array[i + 1] = array[i];
+            }
+            array[index] = value;
+        } else {
+            array[index] = value;
+            size++;
+        }
     }
 
     @Override

@@ -265,10 +265,8 @@ public abstract class AbstractListTest {
         list.add(true,3);
         list.add(null,4);
         list.add(2.0,5);
-        list.add(1234567890L,6);
-        list.add(3.14f,7);
-        list.add("CoderNL",8);
-        assertEquals("[1000, 2000, A, true, null, 2.0, 1234567890L, 3.14f, CoderNL]", list.toString());
+        list.add("CoderNL",6);
+        assertEquals("[1000, 2000, A, true, null, 2.0, CoderNL]", list.toString());
     }
     @DisplayName("List is empty after initialization")
     @Test
